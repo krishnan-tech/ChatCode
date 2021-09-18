@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import {
   Button,
   FormControl,
@@ -12,6 +11,7 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
+import ServerApi from "../utils/serverInstance";
 
 export default function CreateRoom(): JSX.Element {
   // states
@@ -22,6 +22,33 @@ export default function CreateRoom(): JSX.Element {
 
   const setUserNameEventHandler = (e) => {
     setUserName(e.target.value);
+  };
+
+  const formSubmitEventHandler = () => {
+    ServerApi.post("/api/room", { userName, roomName, password: roomPassword })
+      .then((res) => {
+        console.log(res);
+
+        if (res.data.error) {
+          alert("Looks like some error occured");
+        } else {
+          const userData = {
+            UserName: res.data.members[0].name,
+            UserId: res.data.members[0].userId,
+            RoomName: res.data.roomName,
+            RoomId: res.data.roomId,
+          };
+
+          localStorage.setItem("user", JSON.stringify(userData));
+
+          // console.log("room is created!!!!!!!!!");
+          // alert(`Room is created & Room ID is ${res.data.roomId}`);
+          location.replace(`/room/${res.data.roomId}`);
+        }
+      })
+      .catch((err) => {
+        alert("Looks like some error occured");
+      });
   };
 
   return (
@@ -69,7 +96,7 @@ export default function CreateRoom(): JSX.Element {
           </FormControl>
 
           <FormControl mt={6}>
-            <FormLabel>Room Password (Default: 123)</FormLabel>
+            <FormLabel>Room Password</FormLabel>
             <Input
               type="password"
               value={roomPassword}
@@ -92,6 +119,7 @@ export default function CreateRoom(): JSX.Element {
 
           <Stack spacing={6}>
             <Button
+              onClick={formSubmitEventHandler}
               bg={"blue.400"}
               color={"white"}
               _hover={{
