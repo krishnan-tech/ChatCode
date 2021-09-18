@@ -1,9 +1,14 @@
-import React from "react";
-import { SampleComponent } from "../components/SampleComponent";
+import { EditorComponent } from "../components/EditorComponent";
+import Navbar from "../components/Navbar";
+import { Box } from "@chakra-ui/react";
 
 const Index = () => (
   <div>
-    hello world <SampleComponent />
+    <Navbar />
+
+    <Box p={4}>
+      <EditorComponent />
+    </Box>
   </div>
 );
 
