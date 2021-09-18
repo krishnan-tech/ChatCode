@@ -24,7 +24,6 @@ export default function CreateRoom(): JSX.Element {
     setUserName(e.target.value);
   };
 
-
   return (
     <Flex
       minH={"50vh"}
@@ -70,7 +69,7 @@ export default function CreateRoom(): JSX.Element {
           </FormControl>
 
           <FormControl mt={6}>
-            <FormLabel>Room Password</FormLabel>
+            <FormLabel>Room Password (Default: 123)</FormLabel>
             <Input
               type="password"
               value={roomPassword}
