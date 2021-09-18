@@ -1,16 +1,5 @@
+import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import {
-  Box,
-  Flex,
-  Heading,
-  Container,
-  Text,
-  Button,
-  Stack,
-  Icon,
-  useColorModeValue,
-  createIcon,
-} from "@chakra-ui/react";
 
 export default function Landing(): JSX.Element {
   return (
@@ -69,7 +58,7 @@ export default function Landing(): JSX.Element {
               rounded={"full"}
               px={6}
               colorScheme={"orange"}
-              bg={"gray.800"}
+              bg={"gray.500"}
               _hover={{ bg: "gray.600" }}
             >
               Enter Into Room
