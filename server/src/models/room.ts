@@ -1,17 +1,48 @@
 import { model, Schema } from "mongoose";
 
 export interface RoomSchema extends Document {
-  member: string[];
+  roomName: StringConstructor;
+  roomId: StringConstructor;
+  password: StringConstructor;
+  members: {
+    type: ArrayConstructor;
+    userId: {
+      type: StringConstructor;
+    };
+    name: {
+      type: StringConstructor;
+    };
+  };
+  createdAt: StringConstructor;
+  updatedAt: StringConstructor;
 }
-
-// ! todo room id 8 char
-// ! room name
-// ! room password required=false
 
 const roomSchema: Schema = new Schema(
   {
+    roomName: {
+      type: String,
+      require: true,
+    },
+    roomId: {
+      type: String,
+      require: true,
+    },
+    password: {
+      type: String,
+      require: true,
+    },
+    code: {
+      type: String,
+      default: "",
+    },
     members: {
       type: Array,
+      userId: {
+        type: String,
+      },
+      name: {
+        type: String,
+      },
     },
   },
   { timestamps: true }
