@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const ServerApi = axios.create({
+const API = axios.create({
   baseURL: "http://api.paiza.io:80/runners",
 });
 
-export default ServerApi;
+export default API;
