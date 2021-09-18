@@ -1,24 +1,6 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Switch,
-  Avatar,
-  HStack,
-  Link,
-  IconButton,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
-  Stack,
-} from "@chakra-ui/react";
-import React, { ReactNode, useEffect, useState } from "react";
-import { ChatDrawer } from "./ChatDrawer";
+import { Box, Flex, HStack, Link, useColorModeValue } from "@chakra-ui/react";
+import React, { ReactNode, useState } from "react";
+import { DarkModeSwitch } from "./DarkModeSwitch";
 
 const Links = [
   ["Home", "/"],
@@ -43,24 +25,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 );
 
 export default function withAction() {
-  let isDarkTheme = true;
-
-  if (typeof window !== "undefined") {
-    isDarkTheme =
-      localStorage.getItem("chakra-ui-color-mode") === "dark" ? true : false;
-  }
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isChatOpen, setIsChatOpen] = useState(true);
-  const [isToggleOpen, setIsToggleOpen] = useState(isDarkTheme);
-
-  useEffect(() => {
-    if (isToggleOpen) {
-      localStorage.setItem("chakra-ui-color-mode", "dark");
-    } else {
-      localStorage.setItem("chakra-ui-color-mode", "light");
-    }
-  }, [isToggleOpen]);
 
   return (
     <Flex>
@@ -70,13 +35,6 @@ export default function withAction() {
         style={isChatOpen ? { width: "75%" } : { width: "100%" }}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
           <HStack spacing={8} alignItems={"center"}>
             <Box>ChatCode</Box>
             <HStack
@@ -88,15 +46,8 @@ export default function withAction() {
                 <NavLink key={link[1]}>{link}</NavLink>
               ))}
             </HStack>
-            {console.log(isToggleOpen)}
             <Box>
-              <Switch
-                colorScheme="teal"
-                size="lg"
-                onChange={() => setIsToggleOpen(!isToggleOpen)}
-                isChecked={isToggleOpen}
-                defaultChecked={isToggleOpen}
-              />
+              <DarkModeSwitch />
             </Box>
           </HStack>
           <div onClick={() => setIsChatOpen(!isChatOpen)}>okay</div>
