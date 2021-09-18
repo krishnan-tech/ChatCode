@@ -1,16 +1,16 @@
 import Navbar from "../components/Navbar";
-import { Box } from "@chakra-ui/react";
-import React from "react";
-import { Editor } from "../components/EditorComponent";
+import  Landing  from '../components/Landing';
+import Rooms from '../components/Rooms';
 
-const Index = () => (
-  <div>
-    <Navbar />
+const Index = () => {
 
-    <Box p={4}>
-      <Editor />
-    </Box>
-  </div>
-);
+  return (
+    <div>
+      <Navbar />
+      <Landing />
+      <Rooms />   
+    </div>
+  );
+};
 
 export default Index;
