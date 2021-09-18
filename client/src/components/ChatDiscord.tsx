@@ -22,7 +22,7 @@ export const ChatDiscord = () => {
   const [inputState, setInputState] = useState("");
 
   return (
-    <Box>
+    <Box >
       <Box
         bg="facebook.200"
         w="100%"

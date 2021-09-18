@@ -263,7 +263,7 @@ import {
                     setCode(e);
                     // socket_global.emit("editor", code);
                   }}
-                  height={"82vh"}
+                  height={"69vh"}
                   width={"44vw"}
                   fontSize={parseInt(fontSize, 10)}
                   setOptions={{
@@ -295,7 +295,7 @@ import {
                     value={input}
                     //   fontSize={fontSize}
                     onChange={(e) => setInput(e)}
-                    height={"38vh"}
+                    height={"32vh"}
                     width={"28vw"}
                     fontSize={parseInt(fontSize, 10)}
                   />
@@ -312,7 +312,7 @@ import {
                     value={output}
                     // fontSize={fontSize}
                     onChange={(e) => setOutput(e)}
-                    height={"38vh"}
+                    height={"32vh"}
                     width={"28vw"}
                     fontSize={parseInt(fontSize, 10)}
                   />

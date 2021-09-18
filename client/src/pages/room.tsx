@@ -43,7 +43,7 @@ const Room = (props) => {
          </GridItem>
         <GridItem colSpan={chatSize}   > 
             {/* <div onClick={manageSize}><ChatDiscordButton></ChatDiscordButton></div> */}
-            {isChatOpen ? <Box><ChatDiscord></ChatDiscord> </Box> : null}
+            {isChatOpen ? <Box h="85vh" borderLeft="4px" borderLeftColor="whiteAlpha.400" p="20px" backgroundColor="whiteAlpha.400"><ChatDiscord></ChatDiscord> </Box> : null}
         </GridItem>
     </Grid>
    
