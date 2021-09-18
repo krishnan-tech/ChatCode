@@ -1,13 +1,14 @@
-import { EditorComponent } from "../components/EditorComponent";
 import Navbar from "../components/Navbar";
 import { Box } from "@chakra-ui/react";
+import React from "react";
+import { Editor } from "../components/EditorComponent";
 
 const Index = () => (
   <div>
     <Navbar />
 
     <Box p={4}>
-      <EditorComponent />
+      <Editor />
     </Box>
   </div>
 );
