@@ -17,7 +17,6 @@ import {
   import React, { useEffect, useState } from "react";
   import API from "../utils/axiosInstance";
   import { Editor } from "../components/EditorComponent";
-  import { ChatDrawer } from "./ChatDrawer";
   import { useClipboard } from "@chakra-ui/react";
   
   const languages = [
@@ -86,19 +85,18 @@ import {
     const [statusId, setStatusId] = useState<String>("");
     const [status, setStatus] = useState<String>("idel");
     const [isRunning, setIsRunning] = useState<boolean>(false);
-  
-    const [isChatOpen, setIsChatOpen] = useState(true);
+    const [data, setData] = useState({
+      time: "0.00",
+      result: "idel",
+    });
+
     let url = "";
     if (typeof window !== "undefined") {
       url = location.href;
     }
   
     const { hasCopied, onCopy } = useClipboard(url);
-  
-    const [data, setData] = useState({
-      time: "0.00",
-      result: "idel",
-    });
+    
     const router = useRouter();
     const { id } = router.query;
   
@@ -136,7 +134,7 @@ import {
   
     const onRun = async () => {
       setIsRunning(true);
-      // console.log(code);
+      console.log(code);
       try {
         let response = await API.post("/create", {
           source_code: code,
@@ -153,25 +151,9 @@ import {
     };
    
   
-   
-  
-
-  
-    // useEffect(() => {
-    // })
   
     return (
       <>
-        {/* ChatDrawer */}
-        {/* <Grid
-          templateRows="repeat(1, 1fr)"
-          templateColumns="repeat(5, 1fr)"
-          gap={1}
-        >
-          <GridItem colStart={6} colSpan={1}>
-            <ChatDrawer  />
-          </GridItem>
-        </Grid> */}
   
         {/* Editor's Navbar- Controls */}
         <div style={{ background: "", padding: "5px 0" }}>
@@ -278,7 +260,7 @@ import {
                   value={code} // ! Bug: python -> after enter editor it is not indented by default
                   onChange={(e) => {
                   //  onChangeEditor(e);
-                    // setCode(e);
+                    setCode(e);
                     // socket_global.emit("editor", code);
                   }}
                   height={"82vh"}
