@@ -51,6 +51,7 @@ export default function withAction() {
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isChatOpen, setIsChatOpen] = useState(true);
   const [isToggleOpen, setIsToggleOpen] = useState(isDarkTheme);
 
   useEffect(() => {
@@ -62,8 +63,12 @@ export default function withAction() {
   }, [isToggleOpen]);
 
   return (
-    <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+    <Flex>
+      <Box
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        style={isChatOpen ? { width: "75%" } : { width: "100%" }}
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -94,11 +99,13 @@ export default function withAction() {
               />
             </Box>
           </HStack>
-          <ChatDrawer />
-        </Flex>
-    </Box>
+          <div onClick={() => setIsChatOpen(!isChatOpen)}>okay</div>
 
-      {/* <Box p={4}>Main Content Here</Box> */ }
-    </>
+          {/* <ChatDrawer /> */}
+        </Flex>
+      </Box>
+
+      {isChatOpen ? <Box>add chat component here</Box> : null}
+    </Flex>
   );
 }
