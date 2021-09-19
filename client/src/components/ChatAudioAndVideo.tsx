@@ -5,16 +5,16 @@ import Peer from "peerjs";
 import { AiOutlineAudioMuted } from "react-icons/ai";
 import { socket_global } from "../utils/sockets";
 
-var myPeer: Peer;
-var audios: { [id: string]: { id: string; stream: MediaStream } } = {};
-var peers: { [id: string]: Peer.MediaConnection } = {};
-var myAudio: MediaStream | null;
+// var myPeer: Peer;
+// var audios: { [id: string]: { id: string; stream: MediaStream } } = {};
+// var peers: { [id: string]: Peer.MediaConnection } = {};
+// var myAudio: MediaStream | null;
 
 export default function ChatAndAudio({ roomId }) {
   const [inAudio, setInAudio] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
-  // Voice room stuff
+  // // Voice room stuff
   // const getAudioStream = () => {
   //   if (typeof window !== "undefined") {
   //     const myNavigator =
@@ -101,7 +101,16 @@ export default function ChatAndAudio({ roomId }) {
   //     myPeer = new Peer();
   //     myPeer.on("open", (userId) => {
   //       console.log("opened");
-  //       getAudioStream().then((stream) => {
+  //       // @ts-ignore
+  //       var getUserMedia =
+  //         // @ts-ignore
+  //         // @ts-ignore
+  //         navigator.getUserMedia ||
+  //         // @ts-ignore
+  //         navigator.webkitGetUserMedia ||
+  //         // @ts-ignore
+  //         navigator.mozGetUserMedia;
+  //       getUserMedia({ video: true, audio: true }, function (stream) {
   //         socket_global.emit("joinAudioRoom", roomId, userId);
   //         stream.getAudioTracks()[0].enabled = !isMuted;
   //         newUserConnection(stream);
