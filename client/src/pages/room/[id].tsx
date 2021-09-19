@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Grid, GridItem, Box } from "@chakra-ui/react";
-import { ChatDiscordButton, ChatDiscord } from "../../components/ChatDiscord";
+import { ChatDiscord, ChatDiscordButton } from "../../components/ChatDiscord";
 import Navbar from "../../components/Navbar";
 import RoomControls from "../../components/RoomControls";
+import { useRouter } from "next/router";
 
 const Room = (props) => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [editorSize, setEditorSize] = useState(8);
   const [chatSize, setChatSize] = useState(2);
+
+  const router = useRouter();
+  const { id } = router.query;
 
   const manageSize = () => {
     if (isChatOpen) {
@@ -48,7 +52,7 @@ const Room = (props) => {
               p="20px"
               backgroundColor="whiteAlpha.400"
             >
-              <ChatDiscord></ChatDiscord>{" "}
+              <ChatDiscord roomId={id as string} />
             </Box>
           ) : null}
         </GridItem>
