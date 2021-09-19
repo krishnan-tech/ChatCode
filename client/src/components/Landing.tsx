@@ -53,7 +53,7 @@ export default function Landing(): JSX.Element {
         </Stack>
 
         <Stack spacing={6} direction={"row"}>
-          <NextLink href="#rooms">
+          <NextLink href="/joinroom">
             <Button
               rounded={"full"}
               px={6}

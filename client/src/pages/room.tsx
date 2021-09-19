@@ -4,6 +4,8 @@ import RoomControls from "../components/RoomControls";
 import { Grid, GridItem, Box } from "@chakra-ui/react"
 import { ChatDiscord, ChatDiscordButton } from "../components/ChatDiscord";
 
+
+
 const Room = (props) => {
     const [isChatOpen, setIsChatOpen] = useState(true);
     const [editorSize, setEditorSize] = useState(8);
@@ -37,13 +39,14 @@ const Room = (props) => {
         h="80vh"
         templateRows="repeat(1, 1fr)"
         templateColumns="repeat(10, 1fr)"
+     
         >
         <GridItem colSpan={editorSize}  >
             <RoomControls />
          </GridItem>
-        <GridItem colSpan={chatSize}   > 
+        <GridItem colSpan={chatSize}      > 
             {/* <div onClick={manageSize}><ChatDiscordButton></ChatDiscordButton></div> */}
-            {isChatOpen ? <Box h="85vh" borderLeft="4px" borderLeftColor="whiteAlpha.400" p="20px" backgroundColor="whiteAlpha.400"><ChatDiscord></ChatDiscord> </Box> : null}
+            {isChatOpen ? <Box h="85vh" borderLeft="4px"  borderLeftColor="whiteAlpha.400"  p="20px" backgroundColor="whiteAlpha.400"><ChatDiscord></ChatDiscord> </Box>  : null}
         </GridItem>
     </Grid>
    
