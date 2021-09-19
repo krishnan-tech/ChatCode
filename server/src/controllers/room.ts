@@ -90,3 +90,17 @@ export const joinRoom = async (req: express.Request, res: express.Response) => {
       });
   }
 };
+
+export const codeSave = async (
+  req: express.Request,
+  _res: express.Response
+) => {
+  const { roomId, code } = req.body;
+
+  await RoomModel.findOneAndUpdate(
+    { roomId: roomId },
+    { $set: { code: code } },
+    { new: true }
+  );
+  return true;
+};

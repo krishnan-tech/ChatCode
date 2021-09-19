@@ -1,5 +1,10 @@
 import express from "express";
-import { createRoom, getRoomsOfUser, joinRoom } from "../controllers/room";
+import {
+  createRoom,
+  getRoomsOfUser,
+  joinRoom,
+  codeSave,
+} from "../controllers/room";
 
 const router = express.Router();
 
@@ -11,5 +16,8 @@ router.post("/joinRoom", joinRoom);
 
 // get rooms of a user
 router.get("/room/:userId", getRoomsOfUser);
+
+// post code to DB
+router.post("/code", codeSave);
 
 module.exports = router;

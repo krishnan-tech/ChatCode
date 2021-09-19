@@ -23,6 +23,12 @@ io.on("connection", (socket: any) => {
     io.emit("editor", val);
   });
 
+  // listen for event in output editor
+  socket.on("output", (val: string) => {
+    console.log(val);
+    io.emit("output", val);
+  });
+
   socket.on("voice", function (data: string) {
     var newData = data.split(";");
     newData[0] = "data:audio/ogg;";

@@ -19,6 +19,8 @@ import API from "../utils/axiosInstance";
 import { Editor } from "../components/EditorComponent";
 import { useClipboard } from "@chakra-ui/react";
 import { socket_global } from "../utils/sockets";
+import { useDebouncedEffect } from "../utils/useDebounceEffect";
+import { PREXIX_SERVER_URL } from "../utils/env";
 
 const languages = [
   "c",
@@ -103,6 +105,12 @@ export default function RoomControls(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
 
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setCode(localStorage.getItem("code"));
+    }
+  }, []);
+
   // Run Program
   const getOutput = async (statusId: string | String) => {
     if (statusId == "") return;
@@ -162,6 +170,26 @@ export default function RoomControls(): JSX.Element {
   const onChangeEditor = (e) => {
     socket_global.emit("editor", e);
   };
+
+  useEffect(() => {
+    console.log(output);
+    socket_global.on("output", (msg: string) => {
+      setOutput(msg);
+    });
+  }, [output]);
+
+  useDebouncedEffect(
+    async () => {
+      const data = {
+        code: code,
+        roomId: id,
+      };
+      localStorage.setItem("code", code as string);
+      const res = await axios.post(PREXIX_SERVER_URL + "/code", data);
+    },
+    [code],
+    1000
+  );
 
   return (
     <>
@@ -295,7 +323,6 @@ export default function RoomControls(): JSX.Element {
                 ]}
               />
             </Box>
-
             <Box p={4}>
               <Box mb={4}>
                 <Text>Input</Text>
