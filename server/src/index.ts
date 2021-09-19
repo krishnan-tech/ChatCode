@@ -25,7 +25,10 @@ mongoose.connection.on("error", (err) => {
 const PORT = process.env.PORT || 8080;
 
 const roomRoutes = require("./routes/room");
+const messageRoutes = require("./routes/messages");
+
 app.use("/api", roomRoutes);
+app.use("/api", messageRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
