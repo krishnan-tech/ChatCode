@@ -253,30 +253,6 @@ export default function RoomControls(): JSX.Element {
               </Button>
             </WrapItem>
           </Center>
-          <Center>
-            <WrapItem>
-              <Button
-                colorScheme={inAudio ? "teal" : "facebook"}
-                variant="solid"
-                onClick={() => setInAudio(!inAudio)}
-              >
-                {inAudio ? "Leave Audio" : "Join Audio"} Room
-              </Button>
-            </WrapItem>
-          </Center>
-          {inAudio ? (
-            <Center>
-              <WrapItem>
-                <Button
-                  colorScheme={!isMuted ? "teal" : "facebook"}
-                  variant="solid"
-                  onClick={() => setIsMuted(!isMuted)}
-                >
-                  {isMuted ? "Muted" : "Speaking"}
-                </Button>
-              </WrapItem>
-            </Center>
-          ) : null}
         </Wrap>
       </div>
       <hr />
