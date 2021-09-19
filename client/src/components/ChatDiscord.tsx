@@ -73,10 +73,10 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
         currentRoomId={roomId}
         newMessageSubmitted={newMessageSubmitted}
       />
-      
+
       <Flex position="fixed" bottom="20">
         <Box p="5">
-          <ChatAndAudio></ChatAndAudio>
+          <ChatAndAudio roomId={roomId} />
         </Box>
       </Flex>
       <Flex position="fixed" bottom="10">
