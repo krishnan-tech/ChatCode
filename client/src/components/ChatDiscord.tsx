@@ -12,7 +12,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { PREXIX_SERVER_URL } from "../utils/env";
 import ChatAndAudio from "./ChatAudioAndVideo";
-import ChatIconn from "./ChatIcon";
+
 import { Messenger } from "./Messenger";
 
 export const ChatDiscordButton = () => {
@@ -70,11 +70,7 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
         currentRoomId={roomId}
         newMessageSubmitted={newMessageSubmitted}
       />
-      <Flex position="fixed" top="500">
-        <Box p="5">
-          <ChatIconn></ChatIconn>
-        </Box>
-      </Flex>
+      
       <Flex position="fixed" bottom="20">
         <Box p="5">
           <ChatAndAudio></ChatAndAudio>
