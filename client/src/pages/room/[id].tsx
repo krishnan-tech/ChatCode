@@ -51,7 +51,7 @@ const Room = (props) => {
               borderLeftColor="whiteAlpha.400"
               p="20px"
               backgroundColor="whiteAlpha.400"
-              style={{maxHeight : "65vh",overflow: "scroll" , overflowX:"hidden"}}
+              style={{maxHeight : "65vh",overflow: "scroll", overflowX: "hidden" }}
             >
               <ChatDiscord roomId={id as string} />
             </Box>

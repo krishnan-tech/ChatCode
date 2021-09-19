@@ -12,7 +12,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { PREXIX_SERVER_URL } from "../utils/env";
 import ChatAndAudio from "./ChatAudioAndVideo";
-
+import ChatIconn from "./ChatIcon";
 import { Messenger } from "./Messenger";
 
 export const ChatDiscordButton = () => {
@@ -43,10 +43,13 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
     // Emit message to server
     // socket.emit("chatMessage", msg);
 
+    const userD = JSON.parse(localStorage.getItem("user"))
+    
+    //console.log(usename)
     const message = {
       roomId: roomId,
-      senderId: "senderId",
-      senderName: "senderName",
+      senderId: userD.UserId ,
+      senderName: userD.UserName,
       text: msg,
     };
 
