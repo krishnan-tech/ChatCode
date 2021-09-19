@@ -15,7 +15,7 @@ const Links = [
   ["Home", "/"],
   ["Create Room", "/createroom"],
   ["Join Room", "/joinroom"],
-  ["Room", "/room"],
+  // ["Room", "/room"],
 ];
 
 const NavLink = ({ children }: { children: ReactNode }) => (

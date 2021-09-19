@@ -4,7 +4,7 @@ import { ChatDiscordButton, ChatDiscord } from "../../components/ChatDiscord";
 import Navbar from "../../components/Navbar";
 import RoomControls from "../../components/RoomControls";
 
-const Room = (_props) => {
+const Room = (props) => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [editorSize, setEditorSize] = useState(8);
   const [chatSize, setChatSize] = useState(2);
@@ -39,8 +39,15 @@ const Room = (_props) => {
           <RoomControls />
         </GridItem>
         <GridItem colSpan={chatSize}>
+          {/* <div onClick={manageSize}><ChatDiscordButton></ChatDiscordButton></div> */}
           {isChatOpen ? (
-            <Box>
+            <Box
+              h="85vh"
+              borderLeft="4px"
+              borderLeftColor="whiteAlpha.400"
+              p="20px"
+              backgroundColor="whiteAlpha.400"
+            >
               <ChatDiscord></ChatDiscord>{" "}
             </Box>
           ) : null}
