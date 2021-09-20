@@ -9,11 +9,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PREXIX_SERVER_URL } from "../utils/env";
 import ChatAndAudio from "./ChatAudioAndVideo";
 import ChatIconn from "./ChatIcon";
 import { Messenger } from "./Messenger";
+import dynamic from "next/dynamic";
 
 export const ChatDiscordButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,20 +36,42 @@ export const ChatDiscordButton = () => {
 };
 
 export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
+  // useEffect(() => {
+  //   import("peerjs").then(({ default: Peer }) => {
+  //     console.log(Peer);
+  //   });
+
+  // }, []);
+
   const btnRef = React.useRef();
   const [inputState, setInputState] = useState("");
   const [newMessageSubmitted, setNewMessageSubmitted] = useState({});
+
+  const isClient = typeof window !== undefined;
+  // console.log(isClient);
+
+  if (isClient) {
+    return (
+      <div style={{ height: "100vh", width: "100vw", backgroundColor: "red" }}>
+        loading...
+      </div>
+    );
+  }
+
+  // console.log(window);
+
+  // console.log(navigator);
 
   const submitMessageFn = async (msg: string, roomId: string) => {
     // Emit message to server
     // socket.emit("chatMessage", msg);
 
-    const userD = JSON.parse(localStorage.getItem("user"))
-    
+    const userD = JSON.parse(localStorage.getItem("user"));
+
     //console.log(usename)
     const message = {
       roomId: roomId,
-      senderId: userD.UserId ,
+      senderId: userD.UserId,
       senderName: userD.UserName,
       text: msg,
     };
