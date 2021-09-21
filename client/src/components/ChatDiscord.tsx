@@ -9,6 +9,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { PREXIX_SERVER_URL } from "../utils/env";
 import ChatAndAudio from "./ChatAudioAndVideo";
@@ -34,13 +35,6 @@ export const ChatDiscordButton = () => {
 };
 
 export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
-  useEffect(() => {
-    import("peerjs").then(({ default: Peer }) => {
-      console.log(Peer);
-    });
-  }, []);
-
-  const btnRef = React.useRef();
   const [inputState, setInputState] = useState("");
   const [newMessageSubmitted, setNewMessageSubmitted] = useState({});
 
