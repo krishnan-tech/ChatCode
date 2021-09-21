@@ -24,8 +24,8 @@ export const Messenger: React.FC<MessengerProps> = ({
     const user = JSON.parse(localStorage.getItem("user"))
       ? JSON.parse(localStorage.getItem("user")).UserId
       : "randomId";
-    console.log(user );
-  
+    console.log(user);
+
     const getConversations = async () => {
       const url = PREXIX_SERVER_URL + "/room/" + user;
       const res = await axios.get(url);

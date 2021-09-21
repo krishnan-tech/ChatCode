@@ -7,9 +7,7 @@ export const ChatIconn = () => {
   return (
     <Stack direction="row" spacing={20}>
       <IconButton aria-label="Add to friends" icon={<AiOutlineAudioMuted />} />
-
       <IconButton aria-label="Add to friends" icon={<BiPhone />} />
-
       <IconButton aria-label="Add to friends" icon={<BiVideoOff />} />
     </Stack>
   );
