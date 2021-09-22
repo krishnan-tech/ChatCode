@@ -1,4 +1,4 @@
-﻿# CodeChode - Code Together
+﻿# CodeCode - Code Together
 
 This is the final submission for HackOdisha Hackathon.
 
