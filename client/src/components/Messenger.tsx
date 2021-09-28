@@ -24,7 +24,6 @@ export const Messenger: React.FC<MessengerProps> = ({
     const user = JSON.parse(localStorage.getItem("user"))
       ? JSON.parse(localStorage.getItem("user")).UserId
       : "randomId";
-    console.log(user);
 
     const getConversations = async () => {
       const url = PREXIX_SERVER_URL + "/room/" + user;
@@ -39,12 +38,10 @@ export const Messenger: React.FC<MessengerProps> = ({
   useEffect(() => {
     const getMessages = async () => {
       try {
-        console.log(currentRoomId);
         const res = await axios.get(
           PREXIX_SERVER_URL + "/messages/" + currentRoomId
         );
         // console.log(res);
-        console.log(res.data);
         setMessages(res.data);
       } catch (e) {
         console.log(e);
@@ -55,7 +52,6 @@ export const Messenger: React.FC<MessengerProps> = ({
   }, [roomState, currentRoomId]);
 
   useEffect(() => {
-    console.log("message");
     socket_global.on("message", (message: any) => {
       if (!(message.text == undefined)) {
         setMessages([...messages, message]);

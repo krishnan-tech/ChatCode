@@ -57,7 +57,11 @@ const Room = (props) => {
                 overflowX: "hidden",
               }}
             >
-              <ChatDiscord roomId={id as string} />
+              {/* <ChatDiscord roomId={id as string} /> */}
+              <div suppressHydrationWarning={true}>
+                {process.browser && <ChatDiscord roomId={id as string} />}
+                {/* <div>some other component</div> */}
+              </div>
             </Box>
           ) : null}
         </GridItem>

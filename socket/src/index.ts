@@ -9,10 +9,6 @@ console.log("socket started has started");
 var socketsStatus = {};
 
 io.on("connection", (socket: any) => {
-  const socketId = socket.id;
-  // @ts-ignore
-  socketsStatus[socket.id] = {};
-
   // listen to chatMessage
   socket.on("chatMessage", (msg: string) => {
     io.emit("message", msg);
@@ -29,16 +25,19 @@ io.on("connection", (socket: any) => {
     io.emit("output", val);
   });
 
-  socket.on("voice", function (data: string) {
-    var newData = data.split(";");
-    newData[0] = "data:audio/ogg;";
-    // @ts-ignore
-    newData = newData[0] + newData[1];
+  socket.on("joinroom", (roomId: string) => {
+    socket.join(roomId);
+    socket.broadcast.to(roomId).emit("userjoined");
+  });
+  socket.on("leaveroom", (roomId: string) => {
+    socket.leave(roomId);
+  });
 
-    for (const id in socketsStatus) {
-      // @ts-ignore
-      if (id != socketId && !socketsStatus[id].mute && socketsStatus[id].online)
-        socket.broadcast.to(id).emit("send", newData);
-    }
+  socket.on("joinAudioRoom", (roomId: string, userId: string) => {
+    socket.broadcast.to(roomId).emit("userJoinedAudio", userId);
+
+    socket.on("leaveAudioRoom", () => {
+      socket.broadcast.to(roomId).emit("userLeftAudio", userId);
+    });
   });
 });

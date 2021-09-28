@@ -75,7 +75,10 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
 
       <Flex position="fixed" bottom="20">
         <Box p="5">
-          <ChatAndAudio roomId={roomId} />
+          {/* <ChatAndAudio roomId={roomId} /> */}
+          <div suppressHydrationWarning={true}>
+            {process.browser && <ChatAndAudio roomId={roomId} />}
+          </div>
         </Box>
       </Flex>
       <Flex position="fixed" bottom="10">
