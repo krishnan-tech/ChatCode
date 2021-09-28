@@ -38,6 +38,10 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
   const [inputState, setInputState] = useState("");
   const [newMessageSubmitted, setNewMessageSubmitted] = useState({});
 
+  const userId = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user")).UserId
+    : "guest";
+
   const submitMessageFn = async (msg: string, roomId: string) => {
     // Emit message to server
     // socket.emit("chatMessage", msg);
@@ -77,7 +81,9 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
         <Box p="5">
           {/* <ChatAndAudio roomId={roomId} /> */}
           <div suppressHydrationWarning={true}>
-            {process.browser && <ChatAndAudio roomId={roomId} />}
+            {process.browser && (
+              <ChatAndAudio roomId={roomId} userId={userId} />
+            )}
           </div>
         </Box>
       </Flex>

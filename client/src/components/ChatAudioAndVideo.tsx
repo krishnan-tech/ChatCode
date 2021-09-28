@@ -1,70 +1,123 @@
-import { Stack, Button, Box, IconButton } from "@chakra-ui/react";
+import {
+  Stack,
+  Button,
+  Box,
+  IconButton,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Peer from "simple-peer";
 import React, { useEffect, useState } from "react";
 import { AiOutlineAudioMuted } from "react-icons/ai";
 import { socket_global } from "../utils/sockets";
+import InsideModel from "./InsideModel";
 
-export default function ChatAndAudio({ roomId }) {
+let myPeer: Peer;
+
+export default function ChatAndAudio({ roomId, userId }) {
   const [inAudio, setInAudio] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
-  var peer1 = new Peer({ initiator: true }); // you don't need streams here
-  var peer2 = new Peer();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  peer1.on("signal", (data) => {
-    peer2.signal(data);
-  });
+  // useEffect(() => {
+  //   myPeer = new Peer({ initiator: true });
+  //   myPeer.on("signal", (id) => {
+  //     console.log(id);
+  //     socket_global.emit("join-room", roomId, userId);
+  //   });
+  // }, []);
 
-  peer2.on("signal", (data) => {
-    peer1.signal(data);
-  });
+  // useEffect(() => {
+  //   socket_global.on("user-connected", (userId) => {
+  //     console.log("user connected: ", userId);
+  //   });
+  // });
 
-  peer2.on("stream", (stream) => {
-    var video = document.querySelector("video");
-    if ("srcObject" in video) {
-      video.srcObject = stream;
-    } else {
-      video.src = window.URL.createObjectURL(stream);
-    }
+  // navigator.mediaDevices
+  //   .getUserMedia({
+  //     video: true,
+  //     audio: true,
+  //   })
+  //   .then((stream) => {
+  //     var video = document.querySelector("video");
+  //     addVideoStream(video, stream);
 
-    video.play();
-  });
+  //     myPeer.on("call", (call) => {
+  //       call.answer(stream);
+  //     });
 
-  function addMedia(stream) {
-    peer1.addStream(stream);
-  }
+  //     socket_global.on("user-connected", (userId) => {
+  //       connectToNewUser(userId, stream);
+  //     });
+  //   });
 
-  navigator.mediaDevices
-    .getUserMedia({
-      video: false,
-      audio: isMuted && inAudio,
-    })
-    .then(addMedia)
-    .catch(() => {});
+  // const connectToNewUser = (userId, stream) => {
+  //   const call = myPeer.call(userId);
+  //   var video = document.querySelector("video");
+
+  //   call.on("stream", (userVideoStream) => {
+  //     addVideoStream(video, userVideoStream);
+  //   });
+
+  //   call.on("close", () => {
+  //     video.remove();
+  //   });
+  // };
+
+  // const addVideoStream = (video, stream) => {
+  //   video.srcObject = stream;
+  //   video.addEventListener("loadedmetadata", () => {
+  //     video.play();
+  //   });
+  //   var videoGrid = document.querySelector("video-grid");
+  //   videoGrid.append(video);
+  // };
 
   return (
     <Stack direction="row" spacing={10}>
-      <Button
+      {/* <Button
         colorScheme="teal"
         variant="outline"
         onClick={() => {
           setInAudio(!inAudio);
           setIsMuted(false);
         }}
-      >
+        >
         {inAudio ? "Leave Audio" : "Join Audio"}
-      </Button>
-      {inAudio ? (
+      </Button> */}
+      {/* {inAudio ? (
         <Box>
-          <IconButton
-            aria-label="Add to friends"
-            icon={<AiOutlineAudioMuted />}
-            colorScheme={!isMuted ? "teal" : "facebook"}
-            onClick={() => setIsMuted(!isMuted)}
-          />
+        <IconButton
+        aria-label="Add to friends"
+        icon={<AiOutlineAudioMuted />}
+        colorScheme={!isMuted ? "teal" : "facebook"}
+        onClick={() => setIsMuted(!isMuted)}
+        />
         </Box>
-      ) : null}
-      <video hidden={true}></video>
+      ) : null} */}
+      <Button onClick={onOpen}>Join Audio and Video</Button>
+
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <InsideModel />
+            <InsideModel />
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Stack>
   );
 }
