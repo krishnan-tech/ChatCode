@@ -17,13 +17,11 @@ const StyledVideo = styled.video`
   width: 50%;
 `;
 
-const Video = (props: {
-  peer: { on: (arg0: string, arg1: (stream: any) => void) => void };
-}) => {
+const Video = (props) => {
   const ref = useRef();
 
   useEffect(() => {
-    props.peer.on("stream", (stream: any) => {
+    props.peer.on("stream", (stream) => {
       // @ts-ignore
       ref.current.srcObject = stream;
     });
@@ -34,23 +32,28 @@ const Video = (props: {
 
 const InsideModel = (props: any) => {
   const [peers, setPeers] = useState([]);
-  // const socketRef = useRef();
+  const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
   const roomID = "props.match.params.roomID";
 
   useEffect(() => {
-    // socketRef.current = io.connect("/");
+    // @ts-ignore
+    socketRef.current = io.connect("http://localhost:8900/");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         // @ts-ignore
         userVideo.current.srcObject = stream;
-        socket_global.emit("join room", roomID);
-        socket_global.on("all users", (users) => {
+        // @ts-ignore
+        socketRef.current.emit("join room", roomID);
+        // @ts-ignore
+        socketRef.current.on("all users", (users) => {
           const peers = [];
-          users.forEach((userID: any) => {
-            const peer = createPeer(userID, socket_global.id, stream);
+          console.log(peers);
+          users.forEach((userID) => {
+            // @ts-ignore
+            const peer = createPeer(userID, socketRef.current.id, stream);
             peersRef.current.push({
               peerID: userID,
               peer,
@@ -60,50 +63,55 @@ const InsideModel = (props: any) => {
           setPeers(peers);
         });
 
-        socket_global.on("user joined", (payload) => {
+        // @ts-ignore
+        socketRef.current.on("user joined", (payload) => {
           const peer = addPeer(payload.signal, payload.callerID, stream);
           peersRef.current.push({
             peerID: payload.callerID,
             peer,
           });
 
+          // console.log(peer);
           setPeers((users) => [...users, peer]);
         });
 
-        socket_global.on("receiving returned signal", (payload) => {
+        // @ts-ignore
+        socketRef.current.on("receiving returned signal", (payload) => {
           const item = peersRef.current.find((p) => p.peerID === payload.id);
           item.peer.signal(payload.signal);
         });
       });
   }, []);
 
-  function createPeer(
-    userToSignal: any,
-    callerID: string,
-    stream: MediaStream
-  ) {
+  function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
       initiator: true,
       trickle: false,
       stream,
     });
 
-    peer.on("signal", (signal: any) => {
-      socket_global.emit("sending signal", { userToSignal, callerID, signal });
+    peer.on("signal", (signal) => {
+      // @ts-ignore
+      socketRef.current.emit("sending signal", {
+        userToSignal,
+        callerID,
+        signal,
+      });
     });
 
     return peer;
   }
 
-  function addPeer(incomingSignal: any, callerID: any, stream: MediaStream) {
+  function addPeer(incomingSignal, callerID, stream) {
     const peer = new Peer({
-      initiator: true,
+      initiator: false,
       trickle: false,
       stream,
     });
 
-    peer.on("signal", (signal: any) => {
-      socket_global.emit("returning signal", { signal, callerID });
+    peer.on("signal", (signal) => {
+      // @ts-ignore
+      socketRef.current.emit("returning signal", { signal, callerID });
     });
 
     peer.signal(incomingSignal);

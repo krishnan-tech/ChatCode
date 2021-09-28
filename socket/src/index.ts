@@ -28,22 +28,9 @@ io.on("connection", (socket: any) => {
     io.emit("output", val);
   });
 
-  socket.on("join room", (roomID: string) => {
+  socket.on("join room", (roomID: string | number) => {
     if (users[roomID]) {
       const length = users[roomID].length;
-      let seen = users[roomID].filter(
-        (
-          (s) => (v: any) =>
-            s.has(v) || !s.add(v)
-        )(new Set())
-      );
-      if (seen) {
-        return;
-      }
-      // console.log(length);
-      // for (let i = 0; i < length; i++) {
-      //   console.log(users[roomID][i]);
-      // }
       if (length === 4) {
         socket.emit("room full");
         return;
@@ -52,8 +39,6 @@ io.on("connection", (socket: any) => {
     } else {
       users[roomID] = [socket.id];
     }
-
-    console.log(users);
     socketToRoom[socket.id] = roomID;
     const usersInThisRoom = users[roomID].filter((id: any) => id !== socket.id);
 
