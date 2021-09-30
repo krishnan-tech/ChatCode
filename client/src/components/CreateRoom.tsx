@@ -10,7 +10,12 @@ import {
   Text,
   useColorModeValue,
   Link,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
+import { Box}  from "@chakra-ui/react";
 import ServerApi from "../utils/serverInstance";
 
 export default function CreateRoom(): JSX.Element {
@@ -31,6 +36,8 @@ export default function CreateRoom(): JSX.Element {
 
         if (res.data.error) {
           alert("Looks like some error occured");
+
+   
         } else {
           const userData = {
             UserName: res.data.members[0].name,
@@ -47,7 +54,8 @@ export default function CreateRoom(): JSX.Element {
         }
       })
       .catch((err) => {
-        alert("Looks like some error occured");
+       alert("Looks like some error occured");
+   
       });
   };
 

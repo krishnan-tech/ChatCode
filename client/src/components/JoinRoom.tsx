@@ -9,6 +9,11 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Box,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import ServerApi from "../utils/serverInstance";
@@ -32,15 +37,19 @@ export default function JoinRoom(): JSX.Element {
       user,
     })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
 
         if (res.data.error) {
-          alert("Looks like some error occured");
+          alert("Looks like some error occured1");
+          console.log(res.data.error)
+      
         } else {
           if (res.data.UserId) {
             localStorage.setItem("user", JSON.stringify(res.data));
-          }
 
+           
+          }
+//alert(res.data)
           // console.log(res.data);
           location.replace(`/room/${roomId}`);
 
@@ -48,7 +57,8 @@ export default function JoinRoom(): JSX.Element {
         }
       })
       .catch((err) => {
-        alert("Looks like some error occured");
+    
+    alert("Looks like some error occured2"+`${err.error}`);
         console.log(err);
       });
   };

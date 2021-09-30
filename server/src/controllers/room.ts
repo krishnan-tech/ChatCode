@@ -1,13 +1,16 @@
 import express from "express";
 import { nanoid } from "nanoid";
-import RoomModel from "../models/Room";
+import RoomModel from "../models/room";
 
 export const createRoom = async (
   req: express.Request,
   res: express.Response
 ) => {
   const { userName, roomName, password } = req.body;
-
+  if (!userName || !roomName || !password) {
+    res.status(422).json({ error: "please add all field" });
+    return;
+  }
   const newRoom = new RoomModel({
     roomId: nanoid(6),
     members: [{ userId: nanoid(4), name: userName }],
