@@ -1,4 +1,8 @@
-const io = require("socket.io")(8900);
+const io = require("socket.io")(8900, {
+  cors: {
+    origins: "*:*",
+  },
+});
 
 console.log("socket started has started");
 
