@@ -44,11 +44,9 @@ export const ChatDiscord: React.FC<{ roomId: string }> = ({ roomId }) => {
 
   const submitMessageFn = async (msg: string, roomId: string) => {
     // Emit message to server
-    // socket.emit("chatMessage", msg);
 
     const userD = JSON.parse(localStorage.getItem("user"));
 
-    //console.log(usename)
     const message = {
       roomId: roomId,
       senderId: userD.UserId,
